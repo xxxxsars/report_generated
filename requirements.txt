@@ -9,7 +9,5 @@ lxml==3.7.3
 openpyxl==2.4.2
 pipe==1.4.1
 psycopg2==2.7
-pyodbc==4.0.7
-python-docx==0.8.6
 static3==0.7.0
 whitenoise==3.3.0
