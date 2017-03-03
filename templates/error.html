@@ -1,0 +1,34 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Error!!!</title>
+    <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+    <script>
+        var ref = document.referrer;
+        var re = /\/(\w+)\/$/;
+        var url  = ref.match(re)[1];
+
+        $(document).ready(function () {
+            if (url =="secondary"){
+                $("h1").text("請傳入正確的『高中統計excel』檔案")
+
+            }
+            else if(url=="senior"){
+                 $("h1").text("請傳入正確的『國中統計excel』檔案")
+            }
+            
+            $("button").click(function () {
+                window.history.back();
+            })
+        });
+        
+
+    </script>
+</head>
+<body>
+<h1 style='color:red'></h1>
+<button type="button">回到上一頁</button>
+</body>
+</html>

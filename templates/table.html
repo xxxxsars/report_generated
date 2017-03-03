@@ -1,0 +1,137 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+
+    <style>
+        @page {
+            size: A4;
+            margin: 29px;
+        }
+
+        table{
+            font-family:DFKai-sb ;
+        }
+
+        td{
+            height: 30pt;
+        }
+
+
+    </style>
+
+
+    <script>
+         $(document).ready(function() {
+                    var rowCount = $('#myTable tr').length;
+                    console.log(rowCount);
+
+            })
+    </script>
+</head>
+<body>
+
+{% for data in datas %}
+
+        <script>
+         $(document).ready(function() {
+                    var rowCount = $('#{{ data.0.Class }} tr').length;
+                    while (rowCount<12){
+                        var rowCount = $('#{{ data.0.Class }} tr').length;
+                        $("#{{ data.0.Class }}").append("<tr><td></td><td></td><td></td><td></td><td></td></tr>")}
+
+            })
+    </script>
+
+
+<div STYLE="page-break-after: always;">
+
+<table id="{{ data.0.Class }}" style="border:4px black solid; table-layout: fixed ;border-bottom: 2px black solid" rules="all" cellpadding='6' width="100%"  >
+    <tr>
+        <td colspan="6" style="font-size: 16pt">桃&nbsp園&nbsp立&nbsp永&nbsp豐&nbsp高&nbsp中&nbsp學&nbsp生&nbsp懲&nbsp處&nbsp簽&nbsp呈<span style="float: right">{{ year }}年{{ month }}月{{ day }}日</span></td>
+    </tr>
+    <tr style="font-size: 14pt">
+        <th>班  級</th>
+        <th>座  號</th>
+        <th>姓  名</th>
+        <th>獎  勵  事  實</th>
+        <th>擬  定  處  理</th>
+        <th>備     註</th>
+    </tr>
+
+
+    <!--第一筆寫死到裡面-->
+    <tr>
+        <td style="font-size: 16pt" width="20px">{{ data.0.Class }}</td>
+        <td style="font-size: 16pt" width="20px"></td>
+        <td style="font-size :12pt;"></td>
+        <td style="font-size :12pt;"></td>
+        <td style="font-size :12pt;"></td>
+        <td Rowspan="12">依據校規第十五條第二項</td>
+    </tr>
+
+    <!--後面用迴圈跑，設定少於幾蘭補滿-->
+
+        {% for d in data %}
+            <tr>
+                <td style="font-size: 16pt"></td>
+                <td style="font-size: 16pt">{{ d.num }}</td>
+                <td style="font-size :12pt">{{ d.name }}</td>
+                <td style="font-size :12pt">{{ d.content }}</td>
+                <td style="font-size :12pt">{{ d.handle }}</td>
+            </tr>
+        {% endfor %}
+
+            <tr>
+
+                <td style="font-size: 16pt"></td>
+                <td style="font-size: 16pt"></td>
+                <td style="font-size :12pt"></td>
+                <td style="font-size :12pt"></td>
+                <td style="font-size :12pt"></td>
+
+            </tr>
+
+
+
+
+</table>
+
+<table  style="border:4px black solid; table-layout: fixed;border-top:2px black solid " rules="all" cellpadding='6' width="100%">
+
+    <tr style="font-size: 14pt" >
+        <th>擬 稿 人</th>
+        <th>生輔組長</th>
+        <th>主任教官</th>
+        <th>學務主任</th>
+        <th>校長</th>
+    </tr>
+
+    <tr style="height: 50pt">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+</table>
+<br>
+
+<table width="100%">
+    <td><input type="checkbox" style="font-size: 14pt">導師</td>
+    <td><input type="checkbox" style="font-size: 14pt">輔導室</td>
+    <td><input type="checkbox" style="font-size: 14pt">會稿</td>
+</table>
+</div>
+
+
+{% endfor %}
+
+
+
+</body>
+</html>
