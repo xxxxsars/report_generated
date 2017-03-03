@@ -1,1 +1,1 @@
-web: python
+web: gunicorn --pythonpath report report.wsgi
