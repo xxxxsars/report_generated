@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import url,include
 from django.contrib import admin
-from upload.views import index,second_index,i,t
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r"",include("upload.urls"))
