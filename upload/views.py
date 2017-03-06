@@ -179,4 +179,4 @@ def register(request):
 
 
 def redict(request):
-    return HttpResponseRedirect('/index/')
+    return HttpResponseRedirect('/login/')
