@@ -1,0 +1,97 @@
+
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login page</title>
+    <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/base.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/login.css" %}">
+
+    <script>
+        $(document).ready(function () {
+            $("#passwprd").keyup(function (event) {
+                if(event.keyCode==13){
+                    $("#enter").trigger('click')
+                }
+            })
+        })
+    </script>
+
+
+</head>
+
+<body class=" login" data-admin-utc-offset="0">
+
+<!-- Container -->
+<div id="container">
+
+
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+
+<h1 id="site-name"><a href="/login/">請輸入帳號密碼</a></h1>
+
+        </div>
+
+
+    </div>
+    <!-- END Header -->
+
+
+
+
+
+
+
+    <!-- Content -->
+    <div id="content" class="colM">
+
+
+
+
+
+
+
+<div id="content-main">
+
+
+
+<form action="" method="post" id="login-form">{% csrf_token %}
+
+  <div class="form-row">
+
+    <label class="required" for="username">帳號:</label> <input autofocus="" id="username" maxlength="254" name="username" type="text" required="">
+  </div>
+  <div class="form-row">
+
+    <label class="required" for="password">密碼:</label> <input id="password" name="password" type="password" required="">
+
+  </div>
+
+<a href="{% url "register" %}">註冊帳號&nbsp;&nbsp;</a>
+<label>&nbsp;</label><input type="submit" value="Log in">
+
+
+</form>
+
+</div>
+
+
+        <br class="clear">
+    </div>
+    <!-- END Content -->
+
+    <div id="footer"></div>
+</div>
+<!-- END Container -->
+
+
+
+</body>
+
+
+</html>

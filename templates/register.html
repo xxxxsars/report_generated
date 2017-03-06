@@ -1,0 +1,66 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>註冊頁面</title>
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/base.css" %}">
+     <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/login.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/dashboard.css" %}">
+
+
+
+    <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+    <script>
+        $(document).ready(function () {
+            $("#email").keyup(function (event) {
+                if(event.keyCode==13){
+                    $("#submit").trigger('click')
+                }
+            });
+
+
+
+            if($('#msg_sucess').text()=="註冊成功3秒後轉入登入頁...."){
+                window.setTimeout(function () {
+                location.href = "/login/";
+                }, 3000);
+            }
+
+
+        })
+    </script>
+
+    <style>
+        #container{
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="header">
+    <div id="branding">
+        <h1 id="site-name"><a href="/index/">Home</a></h1></div>
+            <div id="user-tools">
+                Welcome,<strong>{{ username }}</strong>.
+                <a href="/">View site</a> /
+                <a href="/logout/">Log out</a>
+            </div>
+</div>
+
+
+<div id="container">
+<form action="" method="post" >{% csrf_token %}
+    <label for="name">請輸入註冊帳號:</label>
+    <input id="name" name="username" type="text"><label style="color: red;" id="error">{{ error }}</label><br>
+    <label for="password">請輸入註冊密碼:</label>
+    <input id="password" name="password" type="text"><br>
+    <input id="enter" value="送出" type="submit">
+</form>
+<label id="msg_sucess">{{ scuess }}</label>
+</div>
+
+</body>
+</html>

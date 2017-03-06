@@ -9,6 +9,7 @@ django.setup()
 
 
 from upload.models import Data
+from django.contrib.auth.models import User
 
 
 import collections
@@ -18,17 +19,15 @@ C_all = (set(Data.objects.values_list("Class",flat=True)))
 
 
 
-aa= []
-for c in C_all:
-    for c in C_all:
-        datas =Data.objects.filter(Class=c)
 
-        aa.append(datas)
+users = User.objects.values_list()
+
+all_user = []
+
+for user in users:
+    all_user.append(str(user[4]))
 
 
-for a in aa:
-    print(a[0].Class)
-    for c in a:
-        if len(a)<=12:
-            print(c.name)
-        print("補"*(12-len(a)))
+
+for i,u in enumerate(all_user):
+    a = User.objects.get(username=u)

@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>Error!!!</title>
     <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/base.css" %}">
+     <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/login.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/dashboard.css" %}">
     <script>
         var ref = document.referrer;
         var re = /\/(\w+)\/$/;
@@ -12,23 +15,36 @@
 
         $(document).ready(function () {
             if (url =="secondary"){
-                $("h1").text("請傳入正確的『高中統計excel』檔案")
+                $("h1").text("請傳入正確的『國中統計excel』檔案")
 
             }
             else if(url=="senior"){
-                 $("h1").text("請傳入正確的『國中統計excel』檔案")
+                 $("h1").text("請傳入正確的『高中統計excel』檔案")
             }
+
+
             
-            $("button").click(function () {
+            $("#goback").click(function () {
                 window.history.back();
-            })
+            });
+
+
         });
         
 
     </script>
+
+    <style>
+        #container{
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
-<h1 style='color:red'></h1>
-<button type="button">回到上一頁</button>
+<div id="container">
+<h1 style='color:red'>{{ error }}</h1>
+<input type="button" id="goback" value="回到上一頁">
+</div>
 </body>
 </html>

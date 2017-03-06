@@ -17,7 +17,7 @@ class Data_tans():
         self.filename = filename
         self.year = content_year
         self.month = content_month
-        self.wb = load_workbook(filename="upload/" + self.filename)
+        self.wb = load_workbook(filename="upload/"+self.filename)
         self.sheet = self.wb.get_sheet_names()
         self.ws = self.wb.get_sheet_by_name(self.sheet[0])
 
@@ -47,13 +47,14 @@ class Data_tans():
                         Class = Class_di[Class_first] + Class_di[Class_second]
                     else:
                         Class = Class_di[Class_first]+Class_di[Class_second]
+                    print( Class, Name, Num, Absenteeism)
 
 
+                    try:
+                        Second_Data.objects.create(Second_Class=Class,Second_name=Name,Second_num=Num,Second_absenteeism=Absenteeism)
 
-
-                    Second_Data.objects.create(Second_Class=Class,Second_name=Name,Second_num=Num,Second_absenteeism=Absenteeism)
-
-
+                    except:
+                        pass
 
     def trans_data(self):
         cursor = connection.cursor()
@@ -97,5 +98,5 @@ class Data_tans():
 
 
 if __name__ =="__main__":
-    a = Data_tans("國一出勤統計 (5).xlsx","100","11")
-    a.trans_data()
+    a = Data_tans("國二出勤統計 (2).xlsx","100","11")
+    a.run()

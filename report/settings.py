@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ["report-generated.herokuapp.com","127.0.0.1"]
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth',  #登入帳號密碼
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',

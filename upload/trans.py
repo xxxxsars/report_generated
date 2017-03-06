@@ -8,13 +8,10 @@ django.setup()
 
 
 
-
-
 from openpyxl import load_workbook
 import openpyxl
 import re
 from upload.models import Data
-
 
 
 
@@ -52,10 +49,11 @@ class Auto():
         #取出同班級學生的資料
         for row in range(1,rows_num+1):
             value = (self.ws.cell(row=row,column=2).value)
-
-            if re.search(r"\w{2}\d{1,2}",value):
-                range_class.append(row)
+            if value !=None:
+               if re.search(r"\w{2}\d{1,2}",value):
+                   range_class.append(row)
         range_class.append(rows_num+1)
+        print(range_class)
         #抓出的班級為類別的list 放入大list中
         all = []
         for i,v in enumerate(range_class):
@@ -82,8 +80,7 @@ class Auto():
         range_class.pop()
 
 
-        doc = open("test.csv",'w',encoding='utf-8')
-        doc.write("班級"+','+"姓名" +','+"座號" +','+"獎勵事實" +','+"擬定處理"+"\n")
+
         for i in range_class:
             data = (self.ws.cell(row=i,column=2).value)
             if re.search(r"\w{2}(\d{1,2})", data):
@@ -121,14 +118,11 @@ class Auto():
                     penalty = (di_student["曠課"]//2)
                     handle = "警告%s次"%penalty
                     content = "統計%s年%s月曠課達%s節"%(self.year,self.month,di_student["曠課"])
-                    doc.write(di_student["班級"]+','+di_student["姓名"]+','+di_student["座號"]+','+content+','+handle+"\n")
-
-                    Data.objects.create(Class=di_student["班級"],name=di_student["姓名"],num=di_student["座號"],content=content,handle=handle)
-                    print(content)
-
-
+                    try:
+                        Data.objects.create(Class=di_student["班級"],name=di_student["姓名"],num=di_student["座號"],content=content,handle=handle)
+                    except:pass
 if __name__ =="__main__":
-    a = Auto()
+    a = Auto("高一出勤統計 (四月).xlsx",'1','1')
     a.run()
 
 

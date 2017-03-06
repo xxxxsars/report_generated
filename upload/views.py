@@ -2,6 +2,9 @@ from django.http import  HttpResponse
 from django.shortcuts import render_to_response,render
 from django.http import HttpResponseRedirect
 from upload.forms import UploadFileForm
+from django.contrib import auth
+
+from django.contrib.auth.models import User
 import re
 from upload.trans import *
 from upload.secondary import *
@@ -10,7 +13,12 @@ import os
 
 
 def i(request):
-    return  render_to_response("index.html",locals())
+    if request.user.is_authenticated():
+        username = request.user.username
+        return  render_to_response("index.html",locals())
+    else:
+        error="請重新登錄！"
+        return render_to_response("error.html",locals())
 
 
 def index(request):
@@ -18,7 +26,7 @@ def index(request):
         if request.method == 'POST':
             a=request.POST
             form = UploadFileForm(request.POST, request.FILES)
-
+            username = request.user.username
             if form.is_valid() :
                 #如果post有資料 先清除db上的資料
                 Data.objects.all().delete()
@@ -50,6 +58,7 @@ def index(request):
 
                     #當處理完畢刪除上傳的檔案
                     os.remove("upload/"+filename)
+
                     return render(request, 'table.html', locals())
                 else:
                     error = "上傳錯誤，請上傳xlsx的excel檔案"
@@ -69,7 +78,7 @@ def second_index(request):
         if request.method == 'POST':
             a=request.POST
             form = UploadFileForm(request.POST, request.FILES)
-
+            username = request.user.username
             if form.is_valid() :
                 #如果post有資料 先清除db上的資料
                 Second_Data.objects.all().delete()
@@ -126,3 +135,48 @@ def handle_uploaded_file(file):
         for chunk in file.chunks():
             destination.write(chunk)
         destination.close()
+
+
+def login(request):
+    if request.user.is_authenticated():
+        return HttpResponseRedirect('/index/')
+
+    #有username就取得
+    username = request.POST.get('username', '')
+    password = request.POST.get('password', '')
+
+    user = auth.authenticate(username=username, password=password)
+
+    if user is not None and user.is_active:
+        auth.login(request, user)
+        return HttpResponseRedirect('/index/')
+    else:
+        return render(request,'login.html',locals())
+
+def logout(request):
+    auth.logout(request)
+    return  HttpResponseRedirect('/login/')
+
+def register(request):
+    if request.method == 'POST':
+        username = request.POST.get("username",'')
+        password =request.POST.get("password",'')
+
+        users = User.objects.values_list()
+        all_user = []
+        for user in users:
+            all_user.append(str(user[4]))
+        if username not in all_user :
+            user = User.objects.create_user(username, 'example@example.com', password)
+            scuess = "註冊成功3秒後轉入登入頁...."
+            return render(request,"register.html",locals())
+        else:
+            error = "此帳號已註冊過！"
+            return render(request, "register.html", locals())
+    else:
+        return render(request,"register.html",locals())
+
+
+
+def redict(request):
+    return HttpResponseRedirect('/index/')

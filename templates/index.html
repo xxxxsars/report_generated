@@ -1,11 +1,34 @@
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+        <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/base.css" %}">
+     <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/login.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/dashboard.css" %}">
+    <style>
+        #container{
+            text-align: center;
+            margin-top: 40px;
+        }
+    </style>
 </head>
 <body>
+
+<div id="header">
+    <div id="branding">
+        <h1 id="site-name"><a href="/index/">Home</a></h1></div>
+            <div id="user-tools">
+                Welcome,<strong>{{ username }}</strong>.
+                <a href="/">View site</a> /
+                <a href="/logout/">Log out</a>
+            </div>
+</div>
+
+<div id="container">
 <a href="{% url "second" %}"><h2>前往國中轉換頁面</h2></a>
 <a href="{% url "first" %}"><h2>前往高中轉換頁面</h2></a>
+</div>
 </body>
 </html>

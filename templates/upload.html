@@ -1,8 +1,10 @@
 {% load staticfiles %}
 
 
-
 <script src="{% static "bower_components/jquery/dist/jquery.js" %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/base.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/login.css" %}">
+<link rel="stylesheet" type="text/css" href="{% static "bower_components/admin/css/dashboard.css" %}">
 <script type="text/javascript">
         function UpladFile() {
 
@@ -44,6 +46,18 @@
 </script>
 
 
+<div id="header">
+    <div id="branding">
+        <h1 id="site-name"><a href="/index/">Home</a></h1></div>
+            <div id="user-tools">
+                Welcome,<strong>{{ username }}</strong>.
+                <a href="/">View site</a> /
+                <a href="/logout/">Log out</a>
+            </div>
+</div>
+
+
+<div id="container">
 <h1 style="color: red">{{ error }}</h1>
 
 <form enctype="multipart/form-data" method="post" action="">
@@ -59,3 +73,4 @@
 {#    <progress id="progressBar" value="0" max="100"></progress>#}
 {#    <span id="percentage"></span>#}
 </form>
+</div>
