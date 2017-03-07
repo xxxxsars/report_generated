@@ -42,6 +42,16 @@
     </style>
 </head>
 <body>
+
+<div id="header">
+    <div id="branding">
+        <h1 id="site-name"><a href="/">Home</a></h1></div>
+            <div id="user-tools">
+                Welcome,<strong>{{ username }}</strong>.
+                <a href="/">View site</a> /
+                <a href="/logout/">Log out</a>
+            </div>
+</div>
 <div id="container">
 <h1 style='color:red'>{{ error }}</h1>
 <input type="button" id="goback" value="回到上一頁">

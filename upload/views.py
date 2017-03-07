@@ -65,7 +65,7 @@ def index(request):
                     return render(request, 'upload.html', locals())
         else:
             form = UploadFileForm()
-
+            username = request.user.username
             c = {'form': form}
 
         return render(request,'upload.html', c)
@@ -118,7 +118,7 @@ def second_index(request):
                     return render(request, 'upload.html', locals())
         else:
             form = UploadFileForm()
-
+            username = request.user.username
             c = {'form': form}
 
         return render(request,'upload.html', c)
@@ -161,15 +161,20 @@ def register(request):
     if request.method == 'POST':
         username = request.POST.get("username",'')
         password =request.POST.get("password",'')
+        token = request.POST.get("yfms_token",'')
 
         users = User.objects.values_list()
         all_user = []
         for user in users:
             all_user.append(str(user[4]))
-        if username not in all_user :
-            user = User.objects.create_user(username, 'example@example.com', password)
-            scuess = "註冊成功3秒後轉入登入頁...."
-            return render(request,"register.html",locals())
+        if username not in all_user:
+            if token=="3692679":
+                user = User.objects.create_user(username, 'example@example.com', password)
+                scuess = "註冊成功3秒後轉入登入頁...."
+                return render(request, "register.html", locals())
+            else:
+                error="授權碼錯誤！"
+                return render(request,"register.html",locals())
         else:
             error = "此帳號已註冊過！"
             return render(request, "register.html", locals())

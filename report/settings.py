@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'p^af=8myu%1=%!rd&ooce&cw8vmrz=(-(h)uip(dsql^z3%n9m'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["report-generated.herokuapp.com","127.0.0.1"]
 
